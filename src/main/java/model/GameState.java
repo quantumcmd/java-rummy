@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Stack;
 
-public class GameState {
+public class GameState implements Serializable {
     private List<Player> players;
     private Integer currentPlayerIndex;
     private Board board;

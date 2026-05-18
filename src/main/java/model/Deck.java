@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Stack;
 
-public class Deck {
+public class Deck implements Serializable {
     private String gameType;
     private Stack<GamePiece> drawPile;
 

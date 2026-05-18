@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Meld {
+public class Meld implements Serializable {
     private List<GamePiece> pieces;
 
     public Meld(List<GamePiece> initialPieces){
