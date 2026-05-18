@@ -77,4 +77,8 @@ public class GameState {
     public void setDiscardPile(Stack<GamePiece> discardPile){
         this.discardPile = discardPile;
     }
+
+    public int getNumberOfPlayers(){
+        return players.size();
+    }
 }
