@@ -1,26 +1,36 @@
 package logic;
 
+import logging.GameLogger;
 import model.GamePiece;
 import model.GameState;
 import model.Meld;
 import model.Player;
 
 public class TurnManager {
+    private final GameLogger logger;
+
+    public TurnManager(){
+        this.logger = new GameLogger();
+    }
 
     public void drawPiece(GameState state, boolean isFromDiscardPile){
         Player currentPlayer = state.getCurrrentPlayer();
         GamePiece pieceToDraw = null;
+        String source = null;
 
         if(isFromDiscardPile){
             if(!state.getDiscardPile().isEmpty()){
                 pieceToDraw = state.getDiscardPile().pop();
+                source = "discard pile";
             }
         } else{
             pieceToDraw = state.getDrawPile().drawPiece(state.getDiscardPile());
+            source = "draw pile";
         }
 
         if(pieceToDraw != null){
             currentPlayer.addCardToHand(pieceToDraw);
+            logger.logAction(currentPlayer.getName() + " drew " + pieceToDraw + " from " + source);
         } else{
             System.out.println("ERROR: No pieces left to draw!");
         }
@@ -40,6 +50,7 @@ public class TurnManager {
         }
 
         state.getBoard().addMeld(meld);
+        logger.logAction(currentPlayer.getName() + " played meld: " +  meld.getPieces().toString());
         return true;
     }
 
@@ -57,6 +68,8 @@ public class TurnManager {
         } else{
             state.setCurrentPlayerIndex(state.getCurrentPlayerIndex() + 1);
         }
+
+        logger.logAction(currentPlayer.getName() + " discarded: " + pieceToDiscard.toString());
     }
 
     public boolean checkWin(Player player){
@@ -70,6 +83,7 @@ public class TurnManager {
 
         if(MeldValidator.isValidRun(meld) || MeldValidator.isValidSet(meld)){
             state.getCurrrentPlayer().removeCardFromHand(tile);
+            logger.logAction(currentPlayer.getName() + " added " + tile.toString() + " to meld at index " + boardMeldIndex);
             return true;
         }
 
@@ -99,5 +113,9 @@ public class TurnManager {
 
         GamePiece starterPiece = state.getDrawPile().drawPiece(state.getDiscardPile());
         state.getDiscardPile().push(starterPiece);
+    }
+
+    public GameLogger getLogger() {
+        return logger;
     }
 }
