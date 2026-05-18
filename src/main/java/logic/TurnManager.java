@@ -5,6 +5,7 @@ import model.GamePiece;
 import model.GameState;
 import model.Meld;
 import model.Player;
+import ui.ErrorMessages;
 
 public class TurnManager {
     private final GameLogger logger;
@@ -32,7 +33,7 @@ public class TurnManager {
             currentPlayer.addCardToHand(pieceToDraw);
             logger.logAction(currentPlayer.getName() + " drew " + pieceToDraw + " from " + source);
         } else{
-            System.out.println("ERROR: No pieces left to draw!");
+            ErrorMessages.noPiecesLeft();
         }
     }
 
@@ -88,7 +89,7 @@ public class TurnManager {
         }
 
         meld.removePiece(tile);
-        System.out.println("ERROR! The card you tried to add to the existing meld makes the meld invalid");
+        ErrorMessages.invalidAdditionRummyKub();
         return false;
     }
 
