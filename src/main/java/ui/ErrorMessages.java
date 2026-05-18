@@ -9,4 +9,8 @@ public class ErrorMessages {
     public static void noPiecesLeft(){
         System.out.println("ERROR: No pieces left to draw!");
     }
+
+    public static void emptyMeldCards() {
+        System.out.println("ERROR! Enter the indices.");
+    }
 }
