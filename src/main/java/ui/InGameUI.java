@@ -46,7 +46,7 @@ public class InGameUI {
         }
     }
 
-    private void printOptions() {
+    protected void printOptions() {
         System.out.println("\n=== In Game Options ===");
         System.out.println("1 -> Draw from Deck");
         System.out.println("2 -> Draw from Discard Pile");
