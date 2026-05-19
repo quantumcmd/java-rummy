@@ -9,12 +9,13 @@ public class Player implements Serializable {
     private List<GamePiece> hand;
     private int score;
     private boolean hasOpened;
+    private int tournamentScore;
 
     public Player(String name){
         this.name = name;
         this.hand = new ArrayList<>();
         hasOpened = false;
-        this.score = 0;
+        this.tournamentScore = 0;
     }
 
     public void addCardToHand(GamePiece piece){
@@ -43,6 +44,14 @@ public class Player implements Serializable {
 
     public int getScore() {
         return score;
+    }
+
+    public int getTournamentScore() {
+        return tournamentScore;
+    }
+
+    public void addTournamentPoints(int points){
+        this.tournamentScore += points;
     }
 
     @Override
