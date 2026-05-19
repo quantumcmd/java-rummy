@@ -4,6 +4,7 @@ import logic.PersistenceManager;
 import logic.TurnManager;
 import logic.rules.GameRules;
 import logic.rules.GinRummy;
+import logic.rules.Rummikub;
 import logic.rules.StandardRummy;
 import model.Deck;
 import model.GameState;
@@ -38,7 +39,7 @@ public class Game {
                     startGinRummy();
                     break;
                 case "3":
-                    // Do something
+                    startRummikub();
                     break;
                 case "4":
                     // Do something
@@ -121,6 +122,24 @@ public class Game {
         GinRummyUI ginRummyUI = new GinRummyUI(mainMenu.getScanner());
 
         runGameLoop(ginRummy, state, ginRummyUI, turnManager);
+    }
+
+    private void startRummikub(){
+        System.out.println("Starting Rummikub...");
+        String gameType = "RUMMIKUB";
+        int minPlayers = 2;
+        int maxPlayers = 2;
+        GameSetupUI setupUI = new GameSetupUI(mainMenu.getScanner(), minPlayers, maxPlayers);
+        List<Player> players = setupUI.setupPlayers();
+
+        Deck deck = new Deck(gameType);
+        GameState state = new GameState(players, deck, gameType);
+        TurnManager turnManager = new TurnManager();
+        Rummikub rummikub = new Rummikub();
+        rummikub.setupMatch(state, turnManager);
+        RummykubUI rummykubUI = new RummykubUI(mainMenu.getScanner());
+
+        runGameLoop(rummikub, state, rummykubUI, turnManager);
     }
 
     private void runGameLoop(GameRules variation, GameState state, InGameUI ui, TurnManager turnManager){
