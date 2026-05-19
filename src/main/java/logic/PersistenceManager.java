@@ -6,7 +6,7 @@ import java.io.*;
 
 public class PersistenceManager {
 
-    public static void saveGame(GameState state, String fileName){
+    public static boolean saveGame(GameState state, String fileName){
         try{
             FileOutputStream fileOut = new FileOutputStream(fileName);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -15,9 +15,9 @@ public class PersistenceManager {
 
             out.close();
             fileOut.close();
-            System.out.println("Game saved successfully to " + fileName);
+            return true;
         } catch(IOException e){
-            System.out.println("Error saving game: " + e.getMessage());
+            return false;
         }
     }
 
@@ -32,7 +32,6 @@ public class PersistenceManager {
             in.close();
             return state;
         } catch(IOException | ClassNotFoundException e){
-            System.out.println("Something went wrong: " + e.getMessage());
             return null;
         }
     }

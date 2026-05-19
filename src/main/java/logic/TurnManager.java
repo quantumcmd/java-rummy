@@ -33,7 +33,7 @@ public class TurnManager {
             currentPlayer.addCardToHand(pieceToDraw);
             logger.logAction(currentPlayer.getName() + " drew " + pieceToDraw + " from " + source);
         } else{
-            ErrorMessages.noPiecesLeft();
+            ErrorMessages.noPiecesLeftToDraw();
         }
     }
 

@@ -6,7 +6,7 @@ public class ErrorMessages {
         System.out.println("ERROR! The card you tried to add to the existing meld makes the meld invalid");
     }
 
-    public static void noPiecesLeft(){
+    public static void noPiecesLeftToDraw(){
         System.out.println("ERROR: No pieces left to draw!");
     }
 

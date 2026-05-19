@@ -75,9 +75,12 @@ public class GinRummy implements GameRules{
                     }
                     break;
                 case "S", "s": // Save
-                    System.out.print("Enter a name to save your file (e.g., save1.dat): ");
-                    String saveName = ui.getScanner().nextLine();
-                    PersistenceManager.saveGame(state, saveName);
+                    String saveName = ui.promptSaveFileName();
+                    boolean saved = PersistenceManager.saveGame(state, saveName);
+                    if(saved)
+                        ui.printMessage("Game saved successfully to " + saveName);
+                    else
+                        ui.printError("Error saving game!");
                     turnManager.getLogger().exportLogsToFile("match_log.txt");
                     break;
             }

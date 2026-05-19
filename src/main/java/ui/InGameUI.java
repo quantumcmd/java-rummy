@@ -117,4 +117,9 @@ public class InGameUI {
     public void printError(String error) {
         System.out.println("ERROR: " + error);
     }
+
+    public String promptSaveFileName() {
+        System.out.print("Enter a name to save your file (e.g., save1.dat): ");
+        return scanner.nextLine();
+    }
 }
