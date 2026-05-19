@@ -39,9 +39,10 @@ public class Rummikub implements GameRules{
                 case "1":
                     if(hasDrawn){
                         System.out.println("You have already drawn a card this turn!");
+                    } else{
+                        turnManager.drawPiece(state, false); // There's no discardPile
+                        hasDrawn = true;
                     }
-                    turnManager.drawPiece(state, false); // There's no discardPile
-                    hasDrawn = true;
                     break;
                 case "2":
                     List<GamePiece> cardsToMeld = ui.promptMeldCards(currentPlayer);
