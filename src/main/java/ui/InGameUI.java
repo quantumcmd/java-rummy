@@ -101,6 +101,13 @@ public class InGameUI {
     }
 
     public void printWinMessage(Player player){
-        System.out.println(player.getName() + " HAS WON THE GAME WITH " + player.getScore() + " points!");
+        System.out.println(player.getName() + " HAS WON THE GAME WITH " + player.getTournamentScore() + " points!");
+    }
+
+    public boolean promptPlayAgain() {
+        System.out.println("Do you want to play another round in this tournament? (Y/N)");
+
+        String userInput = scanner.nextLine();
+        return userInput.equalsIgnoreCase("Y");
     }
 }

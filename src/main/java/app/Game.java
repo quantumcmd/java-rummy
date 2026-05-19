@@ -169,19 +169,58 @@ public class Game {
     }
 
     private void runGameLoop(GameRules variation, GameState state, InGameUI ui, TurnManager turnManager){
-        boolean gameOver = false;
+        boolean tournamentOver = false;
 
-        while(!gameOver){
-            variation.playTurn(state, ui, turnManager);
+        while(!tournamentOver){
+            boolean gameOver = false;
+            state.setRoundOver(false); // Reset at the start of each round
 
-            Player currentPlayer = state.getCurrrentPlayer();
+            while(!gameOver){
+                variation.playTurn(state, ui, turnManager);
 
-            if(turnManager.checkWin(currentPlayer)){
-                ui.printWinMessage(currentPlayer);
-                gameOver = true;
+                Player currentPlayer = state.getCurrrentPlayer();
+
+                if(turnManager.checkWin(currentPlayer)){
+                    ui.printWinMessage(currentPlayer);
+                    gameOver = true;
+                }
+            }
+
+            if(ui.promptPlayAgain()){
+                for(Player player : state.getPlayers()){
+                    player.getHand().clear();
+                    player.setOpened(false); // Reset Argentino state
+                }
+
+                // Clear the table
+                state.getBoard().clear();
+                state.getDiscardPile().clear();
+
+                // New shuffled deck and share cards
+                state.setDrawPile(new Deck(state.getGameType()));
+                variation.setupMatch(state, turnManager);
+            } else{
+                tournamentOver = true;
+                System.out.println("TOURNAMENT ENDED");
+
+                int highestScore = -1;
+                Player playerWithHighest = null;
+
+                for(Player player : state.getPlayers()){
+                    if(player.getTournamentScore() > highestScore){
+                        highestScore = player.getTournamentScore();
+                        playerWithHighest = player;
+                    }
+                }
+
+                if(playerWithHighest != null){
+                    System.out.println("\n==================================================");
+                    System.out.println("THE OVERALL CHAMPION IS: " + playerWithHighest.getName());
+                    System.out.println("WITH A TOTAL SCORE OF: " + highestScore);
+                    System.out.println("===================================================\n");
+                }
             }
         }
-
         turnManager.getLogger().exportLogsToFile("match_log.txt");
     }
 }
