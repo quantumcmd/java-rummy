@@ -17,4 +17,8 @@ public class ErrorMessages {
     public static void noSavedGamesFound() {
         System.out.println("No saved games found (.dat files).");
     }
+
+    public static void meldPointsNotEnough() {
+        System.out.println("Not enough points to open! You need 40");
+    }
 }
