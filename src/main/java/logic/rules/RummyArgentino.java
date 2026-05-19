@@ -37,11 +37,11 @@ public class RummyArgentino implements GameRules{
 
     @Override
     public void playTurn(GameState state, InGameUI ui, TurnManager turnManager) {
-        ui.displayBoard(state);
         boolean hasDrawn = false;
         boolean turnEnded = false;
 
         while(!turnEnded){
+            ui.displayBoard(state);
             String choice = ui.promptTurnAction();
             Player currentPlayer = state.getCurrentPlayer();
 
@@ -52,7 +52,6 @@ public class RummyArgentino implements GameRules{
                     } else{
                         turnManager.drawPiece(state, false);
                         hasDrawn = true;
-                        ui.displayBoard(state);
                     }
                     break;
                 case "2":
@@ -61,7 +60,6 @@ public class RummyArgentino implements GameRules{
                     } else{
                         turnManager.drawPiece(state, true);
                         hasDrawn = true;
-                        ui.displayBoard(state);
                     }
                     break;
                 case "3":
@@ -73,10 +71,8 @@ public class RummyArgentino implements GameRules{
                             Meld proposedMeld = new Meld(cardsToMeld);
                             boolean meldStatus = turnManager.playMeld(state, proposedMeld);
 
-
                             if(meldStatus){
                                 System.out.println("Meld Successful");
-                                ui.displayBoard(state);
                             } else{
                                 System.out.println("Invalid Meld. Try again!");
                             }

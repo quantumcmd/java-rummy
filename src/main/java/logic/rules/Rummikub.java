@@ -32,6 +32,7 @@ public class Rummikub implements GameRules{
         boolean hasPlayed = false;
 
         while(!turnEnded){
+            ui.displayBoard(state);
             String choice = ui.promptTurnAction();
             Player currentPlayer = state.getCurrentPlayer();
 
@@ -52,7 +53,6 @@ public class Rummikub implements GameRules{
                         if(meldStatus){
                             hasPlayed = true;
                             System.out.println("Meld Successful");
-                            ui.displayBoard(state);
                         } else{
                             System.out.println("Invalid meld. Try again!");
                         }
@@ -65,7 +65,6 @@ public class Rummikub implements GameRules{
                                 currentPlayer.setOpened(true);
                                 hasPlayed = true;
                                 System.out.println("Opening meld successful");
-                                ui.displayBoard(state);
                             }
                         }
                     }

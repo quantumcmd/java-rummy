@@ -25,11 +25,11 @@ public class StandardRummy implements GameRules{
 
     @Override
     public void playTurn(GameState state, InGameUI ui, TurnManager turnManager) {
-        ui.displayBoard(state);
         boolean hasDrawn = false;
         boolean turnEnded = false;
 
         while(!turnEnded){
+            ui.displayBoard(state);
             String choice = ui.promptTurnAction();
             Player currentPlayer = state.getCurrentPlayer();
 
@@ -38,7 +38,6 @@ public class StandardRummy implements GameRules{
                     if(!hasDrawn){
                         turnManager.drawPiece(state, false);
                         hasDrawn = true;
-                        ui.displayBoard(state);
                     } else{
                         System.out.println("You have already drawn a card this turn!");
                     }
@@ -47,7 +46,6 @@ public class StandardRummy implements GameRules{
                     if(!hasDrawn){
                         turnManager.drawPiece(state, true);
                         hasDrawn = true;
-                        ui.displayBoard(state);
                     } else{
                         System.out.println("You have already drawn a card this turn!");
                     }
@@ -62,7 +60,6 @@ public class StandardRummy implements GameRules{
 
                         if(meldStatus){
                             System.out.println("Meld successful");
-                            ui.displayBoard(state);
                         } else{
                             System.out.println("Invalid Meld. Try again!");
                         }

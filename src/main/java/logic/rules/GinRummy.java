@@ -19,6 +19,7 @@ public class GinRummy implements GameRules{
         boolean hasDrawn = false;
 
         while(!turnEnded){
+            ui.displayBoard(state);
             String choice = ui.promptTurnAction();
             Player currentPlayer = state.getCurrentPlayer();
 
@@ -29,7 +30,6 @@ public class GinRummy implements GameRules{
                     } else{
                         turnManager.drawPiece(state, false);
                         hasDrawn = true;
-                        ui.displayBoard(state);
                     }
                     break;
                 case "2": // Draw from discardPile
@@ -38,7 +38,6 @@ public class GinRummy implements GameRules{
                     } else{
                         turnManager.drawPiece(state, true);
                         hasDrawn = true;
-                        ui.displayBoard(state);
                     }
                     break;
                 case "3": // Discard
