@@ -44,4 +44,16 @@ public class Player implements Serializable {
     public int getScore() {
         return score;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj)
+            return true;
+
+        if(!(obj instanceof Player))
+            return false;
+
+        Player comparedPlayer = (Player) obj;
+        return this.name.equals(comparedPlayer.name);
+    }
 }
