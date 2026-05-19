@@ -6,7 +6,7 @@ import model.GameState;
 import model.Player;
 import ui.InGameUI;
 
-public class GinRummy implements GameRules{
+public class GinRummy extends BaseGameRules{
     @Override
     public void setupMatch(GameState state, TurnManager turnManager) {
         int numCards = 10;
@@ -75,13 +75,7 @@ public class GinRummy implements GameRules{
                     }
                     break;
                 case "S", "s": // Save
-                    String saveName = ui.promptSaveFileName();
-                    boolean saved = PersistenceManager.saveGame(state, saveName);
-                    if(saved)
-                        ui.printMessage("Game saved successfully to " + saveName);
-                    else
-                        ui.printError("Error saving game!");
-                    turnManager.getLogger().exportLogsToFile("match_log.txt");
+                    handleSave(state, ui, turnManager);
                     break;
             }
         }

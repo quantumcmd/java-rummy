@@ -11,7 +11,7 @@ import ui.InGameUI;
 
 import java.util.List;
 
-public class RummyArgentino implements GameRules{
+public class RummyArgentino extends BaseGameRules{
 
     // NOTE: Joker/wildcard logic is not fully implemented for this variant.
     // Rummy Argentino uses two types of wildcards: the Joker (worth 50 pts)
@@ -97,29 +97,10 @@ public class RummyArgentino implements GameRules{
                     }
                     break;
                 case "S", "s":
-                    String saveName = ui.promptSaveFileName();
-                    boolean saved = PersistenceManager.saveGame(state, saveName);
-                    if(saved)
-                        ui.printMessage("Game saved successfully to " + saveName);
-                    else
-                        ui.printError("Error saving game!");
-                    turnManager.getLogger().exportLogsToFile("match_log.txt");
+                    handleSave(state, ui, turnManager);
                     break;
             }
         }
 
-    }
-
-    @Override
-    public int calculatePoints(GameState state, Player winner) {
-        int pointsWon = 0;
-        for(Player player : state.getPlayers()){
-            if(!player.equals(winner)){
-                for(GamePiece piece : player.getHand()){
-                    pointsWon += piece.getNumericalValue();
-                }
-            }
-        }
-        return pointsWon;
     }
 }

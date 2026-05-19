@@ -11,7 +11,7 @@ import ui.RummykubUI;
 
 import java.util.List;
 
-public class Rummikub implements GameRules{
+public class Rummikub extends BaseGameRules{
     @Override
     public void setupMatch(GameState state, TurnManager turnManager) {
         int numCards = 14;
@@ -88,28 +88,9 @@ public class Rummikub implements GameRules{
                     }
                     break;
                 case "S", "s":
-                    String saveName = ui.promptSaveFileName();
-                    boolean saved = PersistenceManager.saveGame(state, saveName);
-                    if(saved)
-                        ui.printMessage("Game saved successfully to " + saveName);
-                    else
-                        ui.printError("Error saving game!");
-                    turnManager.getLogger().exportLogsToFile("match_log.txt");
+                    handleSave(state, ui, turnManager);
                     break;
             }
         }
-    }
-
-    @Override
-    public int calculatePoints(GameState state, Player winner) {
-        int pointsWon = 0;
-        for(Player player : state.getPlayers()){
-            if(!player.equals(winner)){
-                for(GamePiece piece : player.getHand()){
-                    pointsWon += piece.getNumericalValue();
-                }
-            }
-        }
-        return pointsWon;
     }
 }
