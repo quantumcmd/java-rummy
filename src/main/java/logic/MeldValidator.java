@@ -9,21 +9,37 @@ import java.util.List;
 public class MeldValidator {
     public static boolean isValidSet(List<GamePiece> pieces){
         // SIZE RULE
-        if(pieces.size() != 3 && pieces.size() != 4) return false;
+        if (pieces.size() != 3 && pieces.size() != 4)
+            return false;
+
+        // Separate jokers and normal pieces
+        List<GamePiece> normalPieces = new ArrayList<>();
+        List<GamePiece> jokerPieces = new ArrayList<>();
+
+        for (GamePiece piece : pieces) {
+            if (piece.isJoker())
+                jokerPieces.add(piece);
+            else
+                normalPieces.add(piece);
+        }
+
+        if (jokerPieces.size() > 1) {
+            return false;
+        }
 
         // NUMBER RULE
-        int firstPieceValue = pieces.get(0).getNumericalValue();
+        int firstPieceValue = normalPieces.get(0).getNumericalValue();
 
-        for(int i = 1; i < pieces.size(); i++){
-            if(pieces.get(i).getNumericalValue() != firstPieceValue)
+        for (int i = 1; i < normalPieces.size(); i++) {
+            if (normalPieces.get(i).getNumericalValue() != firstPieceValue)
                 return false;
         }
 
         // CATEGORY RULE
         ArrayList<String> seenCategories = new ArrayList<>();
-        for(GamePiece piece : pieces){
+        for (GamePiece piece : normalPieces) {
             String category = piece.getCategory();
-            if(seenCategories.contains(category))
+            if (seenCategories.contains(category))
                 return false;
             seenCategories.add(category);
         }
@@ -32,25 +48,44 @@ public class MeldValidator {
 
     public static boolean isValidRun(List<GamePiece> pieces){
         // SIZE RULE
-        if(pieces.size() < 3)
+        if (pieces.size() < 3)
             return false;
 
-        sortByNumber(pieces);
+        // Separate jokers and normal pieces
+        List<GamePiece> normalPieces = new ArrayList<>();
+        List<GamePiece> jokerPieces = new ArrayList<>();
+
+        for (GamePiece piece : pieces) {
+            if (piece.isJoker())
+                jokerPieces.add(piece);
+            else
+                normalPieces.add(piece);
+        }
+
+        if (jokerPieces.size() > 1) {
+            return false;
+        }
+
+        sortByNumber(normalPieces);
 
         // CATEGORY RULE
-        String firstCategory = pieces.get(0).getCategory();
-        for(int i = 1; i < pieces.size(); i++){
-            if(!firstCategory.equals(pieces.get(i).getCategory()))
+        String firstCategory = normalPieces.get(0).getCategory();
+        for (int i = 1; i < normalPieces.size(); i++) {
+            if (!firstCategory.equals(normalPieces.get(i).getCategory()))
                 return false;
         }
 
         // CONSECUTIVE RULE
-        for(int i = 1; i < pieces.size(); i++){
-            if(pieces.get(i).getNumericalValue() - pieces.get(i-1).getNumericalValue() != 1)
-                return false;
+        int wildCardsNeeded = 0;
+        for(int i = 1; i < normalPieces.size(); i++){
+            int diff = normalPieces.get(i).getNumericalValue() - normalPieces.get(i-1).getNumericalValue();
+            if(diff == 0) return false;
+            if(diff > 1){
+                wildCardsNeeded += diff - 1;
+            }
         }
 
-        return true;
+        return wildCardsNeeded <= jokerPieces.size();
     }
 
     private static void sortByNumber(List<GamePiece> pieces) {
