@@ -13,4 +13,8 @@ public class ErrorMessages {
     public static void emptyMeldCards() {
         System.out.println("ERROR! Enter the indices.");
     }
+
+    public static void noSavedGamesFound() {
+        System.out.println("No saved games found (.dat files).");
+    }
 }

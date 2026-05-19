@@ -99,4 +99,8 @@ public class InGameUI {
     public Scanner getScanner(){
         return this.scanner;
     }
+
+    public void printWinMessage(Player player){
+        System.out.println(player.getName() + " HAS WON THE GAME WITH " + player.getScore() + " points!");
+    }
 }

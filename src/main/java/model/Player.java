@@ -14,6 +14,7 @@ public class Player implements Serializable {
         this.name = name;
         this.hand = new ArrayList<>();
         hasOpened = false;
+        this.score = 0;
     }
 
     public void addCardToHand(GamePiece piece){
@@ -38,5 +39,9 @@ public class Player implements Serializable {
 
     public void setOpened(boolean hasOpened){
         this.hasOpened = hasOpened;
+    }
+
+    public int getScore() {
+        return score;
     }
 }
