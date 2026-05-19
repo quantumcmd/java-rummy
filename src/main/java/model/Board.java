@@ -30,4 +30,10 @@ public class Board implements Serializable {
     public void clear(){
         melds.clear();
     }
+
+    @Override
+    public String toString() {
+        return "Board: " + (melds != null ? melds.toString() : "[]");
+    }
+
 }

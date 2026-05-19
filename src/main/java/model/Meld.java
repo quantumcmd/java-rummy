@@ -25,4 +25,9 @@ public class Meld implements Serializable {
     public void removePiece(GamePiece piece){
         pieces.remove(piece);
     }
+
+    @Override
+    public String toString() {
+        return pieces != null ? pieces.toString() : "[]";
+    }
 }
