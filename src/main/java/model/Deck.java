@@ -19,7 +19,9 @@ public class Deck implements Serializable {
     private void initPieces(){
         if(gameType.equals("RUMMIKUB")){
             initRummikubTiles();
-        }else{
+        } else if(gameType.equals("ARGENTINO")){
+            initArgentinoDeck();
+        } else{
             initStandardCards();
         }
         shuffleDrawPile();
@@ -50,6 +52,17 @@ public class Deck implements Serializable {
         // Add 2 Rummikub Jokers manually
         drawPile.push(new RummikubTile(TileColour.JOKER_COLOUR, 0));
         drawPile.push(new RummikubTile(TileColour.JOKER_COLOUR, 0));
+    }
+
+    private void initArgentinoDeck(){
+        // Rummy Argentino uses 2 full decks + 2 Jokers (106 cards total)
+        for(int deck = 0; deck < 2; deck++){
+            initStandardCards();
+        }
+
+        // Add 2 Jokers (using JOKER_SUIT and JOKER_RANK)
+        drawPile.push(new StandardCard(Suit.JOKER_SUIT, Rank.JOKER_RANK));
+        drawPile.push(new StandardCard(Suit.JOKER_SUIT, Rank.JOKER_RANK));
     }
 
     private void shuffleDrawPile(){
