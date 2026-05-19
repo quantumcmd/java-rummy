@@ -109,7 +109,7 @@ public class Game {
         int minPlayers = 2;
         int maxPlayers = 2;
         GameSetupUI setupUI = new GameSetupUI(mainMenu.getScanner(), minPlayers, maxPlayers);
-        List<Player> players = new ArrayList<>();
+        List<Player> players = setupUI.setupPlayers();
 
         Deck deck = new Deck(gameType); // drawPile
         GameState state = new GameState(players, deck, gameType);
