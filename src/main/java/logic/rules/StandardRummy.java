@@ -88,7 +88,7 @@ public class StandardRummy implements GameRules{
     public int calculatePoints(GameState state, Player winner) {
         int pointsWon = 0;
         for(Player player : state.getPlayers()){
-            if(!player.equals(player)){
+            if(!player.equals(winner)){
                 for(GamePiece piece : player.getHand()){
                     pointsWon += piece.getNumericalValue();
                 }

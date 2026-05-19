@@ -179,7 +179,7 @@ public class Game {
                 variation.playTurn(state, ui, turnManager);
 
                 Player currentPlayer = state.getCurrrentPlayer();
-                
+
                 if(turnManager.checkWin(currentPlayer) || state.isRoundOver()){
                     int pointsWon = variation.calculatePoints(state, currentPlayer);
                     currentPlayer.addTournamentPoints(pointsWon);
