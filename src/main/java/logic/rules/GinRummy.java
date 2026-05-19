@@ -25,28 +25,13 @@ public class GinRummy extends BaseGameRules{
 
             switch (choice){
                 case "1": // Draw from drawPile
-                    if(hasDrawn){
-                        ui.printError("You have already drawn a card this turn!");
-                    } else{
-                        turnManager.drawPiece(state, false);
-                        hasDrawn = true;
-                    }
+                    hasDrawn = handleDraw(state, ui, turnManager, hasDrawn, false);
                     break;
                 case "2": // Draw from discardPile
-                    if(hasDrawn){
-                        ui.printError("You have already drawn a card this turn!");
-                    } else{
-                        turnManager.drawPiece(state, true);
-                        hasDrawn = true;
-                    }
+                    hasDrawn = handleDraw(state, ui, turnManager, hasDrawn, true);
                     break;
                 case "3": // Discard
-                    if(!hasDrawn){
-                        ui.printError("You must draw a card first!");
-                    } else{
-                        turnManager.discardPiece(state, ui.promptCardSelection(currentPlayer));
-                        turnEnded = true;
-                    }
+                    turnEnded = handleDiscard(state, ui, turnManager, hasDrawn, currentPlayer);
                     break;
                 case "4": // Knock
                     if(!hasDrawn){

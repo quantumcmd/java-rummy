@@ -47,20 +47,10 @@ public class RummyArgentino extends BaseGameRules{
 
             switch (choice){
                 case "1":
-                    if(hasDrawn){
-                        ui.printError("You have already drawn a card this turn!");
-                    } else{
-                        turnManager.drawPiece(state, false);
-                        hasDrawn = true;
-                    }
+                    hasDrawn = handleDraw(state, ui, turnManager, hasDrawn, false);
                     break;
                 case "2":
-                    if(hasDrawn){
-                        ui.printError("You have already drawn a card this turn!");
-                    } else{
-                        turnManager.drawPiece(state, true);
-                        hasDrawn = true;
-                    }
+                    hasDrawn = handleDraw(state, ui, turnManager, hasDrawn, true);
                     break;
                 case "3":
                     if(!hasDrawn){
@@ -89,12 +79,7 @@ public class RummyArgentino extends BaseGameRules{
                     }
                     break;
                 case "4":
-                    if(!hasDrawn){
-                        ui.printError("You must draw a card first!");
-                    } else{
-                        turnManager.discardPiece(state, ui.promptCardSelection(currentPlayer));
-                        turnEnded = true;
-                    }
+                    turnEnded = handleDiscard(state, ui, turnManager, hasDrawn, currentPlayer);
                     break;
                 case "S", "s":
                     handleSave(state, ui, turnManager);

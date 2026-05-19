@@ -38,12 +38,7 @@ public class Rummikub extends BaseGameRules{
 
             switch (choice){
                 case "1":
-                    if(hasDrawn){
-                        ui.printError("You have already drawn a card this turn!");
-                    } else{
-                        turnManager.drawPiece(state, false); // There's no discardPile
-                        hasDrawn = true;
-                    }
+                    hasDrawn = handleDraw(state, ui, turnManager, hasDrawn, false);
                     break;
                 case "2":
                     List<GamePiece> cardsToMeld = ui.promptMeldCards(currentPlayer);

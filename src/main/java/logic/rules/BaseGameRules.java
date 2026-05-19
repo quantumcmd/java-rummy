@@ -32,4 +32,24 @@ public abstract class BaseGameRules implements GameRules{
         }
         turnManager.getLogger().exportLogsToFile("match_log.txt");
     }
+
+    protected boolean handleDraw(GameState state, InGameUI ui, TurnManager turnManager, boolean hasDrawn, boolean isFromDiscard){
+        if (hasDrawn) {
+            ui.printError("You have already drawn a card this turn!");
+            return true;
+        } else {
+            turnManager.drawPiece(state, isFromDiscard);
+            return true;
+        }
+    }
+
+    protected boolean handleDiscard(GameState state, InGameUI ui, TurnManager turnManager, boolean hasDrawn, Player currentPlayer) {
+        if (!hasDrawn) {
+            ui.printError("You must draw a card first!");
+            return false;
+        } else {
+            turnManager.discardPiece(state, ui.promptCardSelection(currentPlayer));
+            return true;
+        }
+    }
 }
