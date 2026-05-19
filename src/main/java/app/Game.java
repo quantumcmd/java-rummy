@@ -3,15 +3,14 @@ package app;
 import logic.PersistenceManager;
 import logic.TurnManager;
 import logic.rules.GameRules;
+import logic.rules.GinRummy;
 import model.Deck;
 import model.GameState;
 import model.Player;
-import ui.ErrorMessages;
-import ui.GameSetupUI;
-import ui.InGameUI;
-import ui.MainMenu;
+import ui.*;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -35,7 +34,7 @@ public class Game {
                     startStandardRummy();
                     break;
                 case "2":
-                    // Do something
+                    startGinRummy();
                     break;
                 case "3":
                     // Do something
@@ -100,6 +99,24 @@ public class Game {
         TurnManager turnManager = new TurnManager();
 
         // DO SOMETHING
+    }
+
+    private void startGinRummy(){
+        System.out.println("Starting Gin Rummy...");
+        String gameType = "GIN";
+        int minPlayers = 2;
+        int maxPlayers = 2;
+        GameSetupUI setupUI = new GameSetupUI(mainMenu.getScanner(), minPlayers, maxPlayers);
+        List<Player> players = new ArrayList<>();
+
+        Deck deck = new Deck(gameType); // drawPile
+        GameState state = new GameState(players, deck, gameType);
+        TurnManager turnManager = new TurnManager();
+        GinRummy ginRummy = new GinRummy();
+        ginRummy.setupMatch(state, turnManager);
+        GinRummyUI ginRummyUI = new GinRummyUI(mainMenu.getScanner());
+
+        runGameLoop(ginRummy, state, ginRummyUI, turnManager);
     }
 
     private void runGameLoop(GameRules variation, GameState state, InGameUI ui, TurnManager turnManager){
