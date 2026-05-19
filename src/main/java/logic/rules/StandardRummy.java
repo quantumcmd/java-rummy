@@ -55,24 +55,26 @@ public class StandardRummy implements GameRules{
                 case "3":
                     if(!hasDrawn){
                         System.out.println("You must draw a card first!");
-                    }
-                    List<GamePiece> cardsToMeld = ui.promptMeldCards(currentPlayer);
-                    Meld meld = new Meld(cardsToMeld);
-                    boolean meldStatus = turnManager.playMeld(state, meld);
-
-                    if(meldStatus){
-                        System.out.println("Meld successful");
-                        ui.displayBoard(state);
                     } else{
-                        System.out.println("Invalid Meld. Try again!");
+                        List<GamePiece> cardsToMeld = ui.promptMeldCards(currentPlayer);
+                        Meld meld = new Meld(cardsToMeld);
+                        boolean meldStatus = turnManager.playMeld(state, meld);
+
+                        if(meldStatus){
+                            System.out.println("Meld successful");
+                            ui.displayBoard(state);
+                        } else{
+                            System.out.println("Invalid Meld. Try again!");
+                        }
                     }
                     break;
                 case "4":
                     if(!hasDrawn){
                         System.out.println("You must draw a card first!");
+                    } else{
+                        turnManager.discardPiece(state, ui.promptCardSelection(currentPlayer));
+                        turnEnded = true;
                     }
-                    turnManager.discardPiece(state, ui.promptCardSelection(currentPlayer));
-                    turnEnded = true;
                     break;
                 case "S", "s":
                     System.out.print("Enter a name to save your file (e.g., save1.dat): ");
