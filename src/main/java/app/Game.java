@@ -4,6 +4,7 @@ import logic.PersistenceManager;
 import logic.TurnManager;
 import logic.rules.GameRules;
 import logic.rules.GinRummy;
+import logic.rules.StandardRummy;
 import model.Deck;
 import model.GameState;
 import model.Player;
@@ -97,8 +98,11 @@ public class Game {
         Deck deck = new Deck(gameType);
         GameState state = new GameState(players, deck, gameType);
         TurnManager turnManager = new TurnManager();
+        StandardRummy standardRummy = new StandardRummy();
+        standardRummy.setupMatch(state, turnManager);
+        InGameUI inGameUI = new InGameUI(mainMenu.getScanner());
 
-        // DO SOMETHING
+        runGameLoop(standardRummy, state, inGameUI, turnManager);
     }
 
     private void startGinRummy(){
