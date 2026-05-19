@@ -18,13 +18,14 @@ public class GameLogger {
         logs.add(action);
     }
 
-    public void exportLogsToFile(String fileName){
+    public boolean exportLogsToFile(String fileName){
         try(FileWriter writer = new FileWriter(fileName)){
             for(String message : logs){
                 writer.write(message + "\n");
             }
+            return true;
         } catch (IOException e){
-            System.out.println("Error saving logs: " + e.getMessage());
+            return false;
         }
     }
 }

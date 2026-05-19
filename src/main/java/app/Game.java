@@ -223,6 +223,9 @@ public class Game {
                 }
             }
         }
-        turnManager.getLogger().exportLogsToFile("match_log.txt");
+
+        boolean logsSaved = turnManager.getLogger().exportLogsToFile("match_log.txt");
+        if(!logsSaved)
+            ui.printError("Error saving match logs!");
     }
 }
