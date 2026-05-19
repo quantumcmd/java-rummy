@@ -9,7 +9,6 @@ import model.Player;
 import ui.*;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -178,7 +177,7 @@ public class Game {
             while(!gameOver){
                 variation.playTurn(state, ui, turnManager);
 
-                Player currentPlayer = state.getCurrrentPlayer();
+                Player currentPlayer = state.getCurrentPlayer();
 
                 if(turnManager.checkWin(currentPlayer) || state.isRoundOver()){
                     int pointsWon = variation.calculatePoints(state, currentPlayer);

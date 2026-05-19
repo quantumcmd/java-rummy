@@ -43,7 +43,7 @@ public class GameState implements Serializable {
         this.players = players;
     }
 
-    public Player getCurrrentPlayer(){
+    public Player getCurrentPlayer(){
         return players.get(currentPlayerIndex);
     }
 

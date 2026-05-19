@@ -43,7 +43,7 @@ public class RummyArgentino implements GameRules{
 
         while(!turnEnded){
             String choice = ui.promptTurnAction();
-            Player currentPlayer = state.getCurrrentPlayer();
+            Player currentPlayer = state.getCurrentPlayer();
 
             switch (choice){
                 case "1":

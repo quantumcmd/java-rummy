@@ -16,7 +16,7 @@ public class InGameUI {
     }
 
     public void displayBoard(GameState state){
-        Player currentPlayer = state.getCurrrentPlayer();
+        Player currentPlayer = state.getCurrentPlayer();
         System.out.println("=== " + currentPlayer.getName() + " ===");
 
         if(!state.getDiscardPile().isEmpty()){

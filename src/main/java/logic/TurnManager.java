@@ -15,7 +15,7 @@ public class TurnManager {
     }
 
     public void drawPiece(GameState state, boolean isFromDiscardPile){
-        Player currentPlayer = state.getCurrrentPlayer();
+        Player currentPlayer = state.getCurrentPlayer();
         GamePiece pieceToDraw = null;
         String source = null;
 
@@ -38,7 +38,7 @@ public class TurnManager {
     }
 
     public boolean playMeld(GameState state, Meld meld){
-        Player currentPlayer = state.getCurrrentPlayer();
+        Player currentPlayer = state.getCurrentPlayer();
 
         if(!currentPlayer.getHand().containsAll(meld.getPieces()))
             return false;
@@ -56,7 +56,7 @@ public class TurnManager {
     }
 
     public void discardPiece(GameState state, GamePiece pieceToDiscard){
-        Player currentPlayer = state.getCurrrentPlayer();
+        Player currentPlayer = state.getCurrentPlayer();
 
         if(!currentPlayer.getHand().contains(pieceToDiscard))
             return;
@@ -78,12 +78,12 @@ public class TurnManager {
     }
 
     public boolean addTileToMeld(GameState state, GamePiece tile, int boardMeldIndex){
-        Player currentPlayer = state.getCurrrentPlayer();
+        Player currentPlayer = state.getCurrentPlayer();
         Meld meld = state.getBoard().getMeld(boardMeldIndex);
         meld.addPiece(tile);
 
         if(MeldValidator.isValidRun(meld) || MeldValidator.isValidSet(meld)){
-            state.getCurrrentPlayer().removeCardFromHand(tile);
+            state.getCurrentPlayer().removeCardFromHand(tile);
             logger.logAction(currentPlayer.getName() + " added " + tile.toString() + " to meld at index " + boardMeldIndex);
             return true;
         }
