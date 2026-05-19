@@ -2,10 +2,7 @@ package app;
 
 import logic.PersistenceManager;
 import logic.TurnManager;
-import logic.rules.GameRules;
-import logic.rules.GinRummy;
-import logic.rules.Rummikub;
-import logic.rules.StandardRummy;
+import logic.rules.*;
 import model.Deck;
 import model.GameState;
 import model.Player;
@@ -42,7 +39,7 @@ public class Game {
                     startRummikub();
                     break;
                 case "4":
-                    // Do something
+                    startRummyArgentino();
                     break;
                 case "5":
                     System.out.println("Thanks for playing! Goodbye.");
@@ -140,6 +137,25 @@ public class Game {
         RummykubUI rummykubUI = new RummykubUI(mainMenu.getScanner());
 
         runGameLoop(rummikub, state, rummykubUI, turnManager);
+    }
+
+    private void startRummyArgentino(){
+        System.out.println("Starting Rummy Argentino...");
+        String gameType = "ARGENTINO";
+        int minPlayers = 2;
+        int maxPlayers = 4;
+        GameSetupUI setupUI = new GameSetupUI(mainMenu.getScanner(), minPlayers, maxPlayers);
+        List<Player> players = setupUI.setupPlayers();
+
+        Deck deck = new Deck(gameType); // 2 decks + 2 jokers
+        GameState state = new GameState(players, deck, gameType);
+        TurnManager turnManager = new TurnManager();
+        RummyArgentino rummyArgentino = new RummyArgentino();
+        rummyArgentino.setupMatch(state, turnManager);
+        InGameUI inGameUI = new InGameUI(mainMenu.getScanner());
+
+        runGameLoop(rummyArgentino, state, inGameUI, turnManager);
+
     }
 
     private void runGameLoop(GameRules variation, GameState state, InGameUI ui, TurnManager turnManager){
