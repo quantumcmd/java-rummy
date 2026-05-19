@@ -110,4 +110,11 @@ public class InGameUI {
         String userInput = scanner.nextLine();
         return userInput.equalsIgnoreCase("Y");
     }
+
+    public void printMessage(String message) {
+        System.out.println(message);
+    }
+    public void printError(String error) {
+        System.out.println("ERROR: " + error);
+    }
 }

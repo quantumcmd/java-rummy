@@ -39,7 +39,7 @@ public class StandardRummy implements GameRules{
                         turnManager.drawPiece(state, false);
                         hasDrawn = true;
                     } else{
-                        System.out.println("You have already drawn a card this turn!");
+                        ui.printError("You have already drawn a card this turn!");
                     }
                     break;
                 case "2":
@@ -47,27 +47,27 @@ public class StandardRummy implements GameRules{
                         turnManager.drawPiece(state, true);
                         hasDrawn = true;
                     } else{
-                        System.out.println("You have already drawn a card this turn!");
+                        ui.printError("You have already drawn a card this turn!");
                     }
                     break;
                 case "3":
                     if(!hasDrawn){
-                        System.out.println("You must draw a card first!");
+                        ui.printError("You must draw a card first!");
                     } else{
                         List<GamePiece> cardsToMeld = ui.promptMeldCards(currentPlayer);
                         Meld meld = new Meld(cardsToMeld);
                         boolean meldStatus = turnManager.playMeld(state, meld);
 
                         if(meldStatus){
-                            System.out.println("Meld successful");
+                            ui.printMessage("Meld successful");
                         } else{
-                            System.out.println("Invalid Meld. Try again!");
+                            ui.printError("Invalid Meld. Try again!");
                         }
                     }
                     break;
                 case "4":
                     if(!hasDrawn){
-                        System.out.println("You must draw a card first!");
+                        ui.printError("You must draw a card first!");
                     } else{
                         turnManager.discardPiece(state, ui.promptCardSelection(currentPlayer));
                         turnEnded = true;

@@ -26,7 +26,7 @@ public class GinRummy implements GameRules{
             switch (choice){
                 case "1": // Draw from drawPile
                     if(hasDrawn){
-                        System.out.println("You have already drawn a card this turn!");
+                        ui.printError("You have already drawn a card this turn!");
                     } else{
                         turnManager.drawPiece(state, false);
                         hasDrawn = true;
@@ -34,7 +34,7 @@ public class GinRummy implements GameRules{
                     break;
                 case "2": // Draw from discardPile
                     if(hasDrawn){
-                        System.out.println("You have already drawn a card this turn!");
+                        ui.printError("You have already drawn a card this turn!");
                     } else{
                         turnManager.drawPiece(state, true);
                         hasDrawn = true;
@@ -42,7 +42,7 @@ public class GinRummy implements GameRules{
                     break;
                 case "3": // Discard
                     if(!hasDrawn){
-                        System.out.println("You must draw a card first!");
+                        ui.printError("You must draw a card first!");
                     } else{
                         turnManager.discardPiece(state, ui.promptCardSelection(currentPlayer));
                         turnEnded = true;
@@ -50,27 +50,27 @@ public class GinRummy implements GameRules{
                     break;
                 case "4": // Knock
                     if(!hasDrawn){
-                        System.out.println("You must draw a card first!");
+                        ui.printError("You must draw a card first!");
                     } else{
                         if(calculateDeadwood(currentPlayer) <= 10){
-                            System.out.println(currentPlayer.getName() + " KNOCKED!");
+                            ui.printMessage(currentPlayer.getName() + " KNOCKED!");
                             state.setRoundOver(true);
                             turnEnded = true;
                         }else {
-                            System.out.println("You can't knock; deadwood is too high (must be ≤ 10)!");
+                            ui.printError("You can't knock; deadwood is too high (must be ≤ 10)!");
                         }
                     }
                     break;
                 case "5": // Go Gin
                     if(!hasDrawn){
-                        System.out.println("You must draw a card first!");
+                        ui.printError("You must draw a card first!");
                     } else{
                         if(calculateDeadwood(currentPlayer) == 0){
-                            System.out.println(currentPlayer.getName() + " GOES GIN!");
+                            ui.printMessage(currentPlayer.getName() + " GOES GIN!");
                             state.setRoundOver(true);
                             turnEnded = true;
                         }else {
-                            System.out.println("You can't go Gin; you still have deadwood!");
+                            ui.printError("You can't go Gin; you still have deadwood!");
                         }
                     }
                     break;

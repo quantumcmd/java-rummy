@@ -48,7 +48,7 @@ public class RummyArgentino implements GameRules{
             switch (choice){
                 case "1":
                     if(hasDrawn){
-                        System.out.println("You have already drawn a card this turn!");
+                        ui.printError("You have already drawn a card this turn!");
                     } else{
                         turnManager.drawPiece(state, false);
                         hasDrawn = true;
@@ -56,7 +56,7 @@ public class RummyArgentino implements GameRules{
                     break;
                 case "2":
                     if(hasDrawn){
-                        System.out.println("You have already drawn a card this turn!");
+                        ui.printError("You have already drawn a card this turn!");
                     } else{
                         turnManager.drawPiece(state, true);
                         hasDrawn = true;
@@ -64,7 +64,7 @@ public class RummyArgentino implements GameRules{
                     break;
                 case "3":
                     if(!hasDrawn){
-                        System.out.println("You must draw a card first!");
+                        ui.printError("You must draw a card first!");
                     } else{
                         if(currentPlayer.hasOpened()){
                             List<GamePiece> cardsToMeld = ui.promptMeldCards(currentPlayer);
@@ -72,9 +72,9 @@ public class RummyArgentino implements GameRules{
                             boolean meldStatus = turnManager.playMeld(state, proposedMeld);
 
                             if(meldStatus){
-                                System.out.println("Meld Successful");
+                                ui.printMessage("Meld Successful");
                             } else{
-                                System.out.println("Invalid Meld. Try again!");
+                                ui.printError("Invalid Meld. Try again!");
                             }
                         } else{
                             List<GamePiece> cards = ui.promptMeldCards(currentPlayer);
@@ -90,7 +90,7 @@ public class RummyArgentino implements GameRules{
                     break;
                 case "4":
                     if(!hasDrawn){
-                        System.out.println("You must draw a card first!");
+                        ui.printError("You must draw a card first!");
                     } else{
                         turnManager.discardPiece(state, ui.promptCardSelection(currentPlayer));
                         turnEnded = true;

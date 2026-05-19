@@ -39,7 +39,7 @@ public class Rummikub implements GameRules{
             switch (choice){
                 case "1":
                     if(hasDrawn){
-                        System.out.println("You have already drawn a card this turn!");
+                        ui.printError("You have already drawn a card this turn!");
                     } else{
                         turnManager.drawPiece(state, false); // There's no discardPile
                         hasDrawn = true;
@@ -52,26 +52,26 @@ public class Rummikub implements GameRules{
                         boolean meldStatus = turnManager.playMeld(state, meld);
                         if(meldStatus){
                             hasPlayed = true;
-                            System.out.println("Meld Successful");
+                            ui.printMessage("Meld Successful");
                         } else{
-                            System.out.println("Invalid meld. Try again!");
+                            ui.printError("Invalid meld. Try again!");
                         }
                     } else{
                         if(turnManager.calculateMeldPoints(meld) < 30){
-                            System.out.println("Your first meld must be worth at least 30 points!");
+                            ui.printError("Your first meld must be worth at least 30 points!");
                         } else{
                             boolean meldStatus = turnManager.playMeld(state, meld);
                             if(meldStatus){
                                 currentPlayer.setOpened(true);
                                 hasPlayed = true;
-                                System.out.println("Opening meld successful");
+                                ui.printMessage("Opening meld successful");
                             }
                         }
                     }
                     break;
                 case "3":
                     if(!currentPlayer.hasOpened()){
-                        System.out.println("You must make your opening meld (30 pts) first!");
+                        ui.printError("You must make your opening meld (30 pts) first!");
                     } else{
                         GamePiece tileToMeld = ui.promptCardSelection(currentPlayer);
                         int meldIndex = ((RummykubUI) ui).promptMeldSelection(state);
@@ -84,7 +84,7 @@ public class Rummikub implements GameRules{
                     if(hasDrawn || hasPlayed){
                         turnEnded = true;
                     } else{
-                        System.out.println("Draw a card first!");
+                        ui.printError("Draw a card first!");
                     }
                     break;
                 case "S", "s":
