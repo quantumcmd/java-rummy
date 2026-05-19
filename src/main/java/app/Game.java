@@ -81,7 +81,17 @@ public class Game {
 
         switch(gameType){
             case "STANDARD":
-                runGameLoop();
+                runGameLoop(new StandardRummy(), savedState, new InGameUI(mainMenu.getScanner()), turnManager);
+                break;
+            case "GIN":
+                runGameLoop(new GinRummy(), savedState, new GinRummyUI(mainMenu.getScanner()), turnManager);
+                break;
+            case "RUMMIKUB":
+                runGameLoop(new Rummikub(), savedState, new RummykubUI(mainMenu.getScanner()), turnManager);
+                break;
+            case "ARGENTINO":
+                runGameLoop(new RummyArgentino(), savedState, new InGameUI(mainMenu.getScanner()), turnManager);
+                break;
         }
     }
 
