@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Meld implements Serializable {
@@ -24,6 +25,10 @@ public class Meld implements Serializable {
 
     public void removePiece(GamePiece piece){
         pieces.remove(piece);
+    }
+
+    public Meld cloneMeld() {
+        return new Meld(new ArrayList<>(this.pieces));
     }
 
     @Override
