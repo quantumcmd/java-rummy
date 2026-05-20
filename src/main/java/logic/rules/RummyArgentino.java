@@ -13,14 +13,6 @@ import java.util.List;
 
 public class RummyArgentino extends BaseGameRules{
 
-    // NOTE: Joker/wildcard logic is not fully implemented for this variant.
-    // Rummy Argentino uses two types of wildcards: the Joker (worth 50 pts)
-    // and the "Mono" (the 2 card, with variable point value). Rules include:
-    // - Max one wildcard per meld.
-    // - Players may swap a joker on the board for the natural card it represents.
-    // - The "2" card is worth 5 pts if substituting cards 3-7, or 20 pts otherwise.
-    // Due to this complexity, wildcards are currently treated as normal cards.
-
     @Override
     public void setupMatch(GameState state, TurnManager turnManager) {
         int numPlayers = state.getNumberOfPlayers();
